@@ -8,15 +8,15 @@ random.seed(seed)
 
 loss_odds = 0.505
 rounds = int(input("Number of rounds: "))
-balance = 600
+balance = 600  # Starting Balance Amount
 initial_balance = balance
-initial_bet = 0.02
+initial_bet = 0.02  # Starting Bet Amount
 bet = initial_bet
 max_bet = initial_bet
 reserve = 0
-reserve_limit = 100
+reserve_limit = 100  # When to Save Money
 loss = 0
-stop_loss = 80
+stop_loss = 80  # Max Loss
 round_nums = []
 balances = []
 last_win = 0
@@ -24,6 +24,7 @@ last_win = 0
 for r in range(1, rounds+1):
     multiplier = random.random()
     round_nums.append(r)
+    time.sleep(0.3)
     balances.append(balance - initial_balance)
     if balance > initial_balance + reserve_limit:
         reserve += reserve_limit
@@ -33,7 +34,7 @@ for r in range(1, rounds+1):
         print("Final Round: ", r)
         break
     print("Win, " + str(r - last_win - 1)
-          if multiplier > loss_odds else "Lose")
+          if multiplier > loss_odds else "Lose", round(balance, 2))
     balance -= bet
     if multiplier > loss_odds:
         balance += 2*bet
