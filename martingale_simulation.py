@@ -5,9 +5,12 @@ import numpy as np
 from scipy.interpolate import make_interp_spline, BSpline
 
 # Create limbo game with betting to simulate losses/gains using martingale strategy
+
+# Seed random number generator
 seed = round(time.time()*1000)
 random.seed(seed)
 
+# Set initial inputs and pick number of rounds
 loss_odds = 0.505
 rounds = int(input("Number of rounds: "))
 balance = 600  # Starting Balance Amount
@@ -23,10 +26,12 @@ round_nums = []
 balances = []
 last_win = 0
 
+# Set up plot
 plt.xlabel('Round')
 plt.ylabel('Profit')
 plt.title('Profit Plot')
 
+# Conduct bets
 for r in range(1, rounds+1):
     multiplier = random.random()
     round_nums.append(r)
@@ -55,6 +60,7 @@ for r in range(1, rounds+1):
     plt.pause(0.25)
     max_bet = max(bet, max_bet)
 
+# Show final output
 print("Final Balance:", balance)
 print("Reserve:", reserve)
 plt.show()
