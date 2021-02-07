@@ -1,6 +1,8 @@
 import random
 import time
 import matplotlib.pyplot as plt
+import numpy as np
+from scipy.interpolate import make_interp_spline, BSpline
 
 # Create limbo game with betting to simulate losses/gains using martingale strategy
 seed = round(time.time()*1000)
@@ -21,10 +23,13 @@ round_nums = []
 balances = []
 last_win = 0
 
+plt.xlabel('Round')
+plt.ylabel('Profit')
+plt.title('Profit Plot')
+
 for r in range(1, rounds+1):
     multiplier = random.random()
     round_nums.append(r)
-    time.sleep(0.3)
     balances.append(balance - initial_balance)
     if balance > initial_balance + reserve_limit:
         reserve += reserve_limit
@@ -44,12 +49,12 @@ for r in range(1, rounds+1):
     else:
         loss += bet
         bet *= 2
+    plt.plot(round_nums, balances, 'g' if balance -
+             initial_balance > 0 else 'r')
+    plt.style.use('dark_background')
+    plt.pause(0.25)
     max_bet = max(bet, max_bet)
 
 print("Final Balance:", balance)
 print("Reserve:", reserve)
-plt.plot(round_nums, balances)
-plt.xlabel('Round')
-plt.ylabel('Profit')
-plt.title('Profit Plot')
 plt.show()
